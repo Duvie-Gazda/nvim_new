@@ -1,0 +1,19 @@
+{
+  "languageserver": {
+    "typescript": {
+      "command": "typescript-language-server",
+      "args": ["--stdio"],
+      "filetypes": ["typescript", "typescriptreact", "javascript", "javascriptreact"]
+    },
+    "svelte": {
+      "command": "svelteserver",
+      "args": ["--stdio"],
+      "filetypes": ["svelte"]
+    }
+  },
+  "suggest.enable": false,
+  "suggest.autoTrigger": "none",
+    "eslint.enable": true,
+  "prettier.enable": true,
+  "svelte.enable-ts-plugin": true
+}

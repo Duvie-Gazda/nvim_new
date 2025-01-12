@@ -1,0 +1,6 @@
+require("config/editor")
+require("config/oil")
+require("config/lsp")
+require("config/db")
+require("config.my_telescope")
+require("config.window")
