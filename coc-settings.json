@@ -1,19 +1,43 @@
 {
-  "languageserver": {
-    "typescript": {
-      "command": "typescript-language-server",
-      "args": ["--stdio"],
-      "filetypes": ["typescript", "typescriptreact", "javascript", "javascriptreact"]
+    "languageserver": {
+        "typescript": {
+            "command": "typescript-language-server",
+            "args": [
+                "--stdio"
+            ],
+            "filetypes": [
+                "typescript",
+                "typescriptreact",
+                "javascript",
+                "javascriptreact"
+            ]
+        },
+        "svelte": {
+            "command": "svelteserver",
+            "args": [
+                "--stdio"
+            ],
+            "filetypes": [
+                "svelte"
+            ]
+        }
     },
-    "svelte": {
-      "command": "svelteserver",
-      "args": ["--stdio"],
-      "filetypes": ["svelte"]
-    }
-  },
-  "suggest.enable": false,
-  "suggest.autoTrigger": "none",
-    "eslint.enable": true,
-  "prettier.enable": true,
-  "svelte.enable-ts-plugin": true
+    "suggest.autoTrigger": "none",
+    "suggest.enable": false,
+    "eslint.enable": false,
+    "prettier.enable": false,
+    "svelte.enable-ts-plugin": true,
+    "diagnostics.enable": false,
+    "diagnostic.enableSign": false,
+    "diagnostic.enableHighlight": false,
+    "diagnostic.enableVirtualText": false,
+    "diagnostic.displayByAle": false,
+    "diagnostic.enableMessage": false,
+    "enableVirtualText": false,
+    "diagnostic.errorSign": false,
+    "diagnostic.warningSign": false,
+    "diagnostic.hintSign": false,
+    "diagnostic.infoSign": false,
+    "inlayHint.enable": false,
+    "diagnostic.underline": false
 }

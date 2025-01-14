@@ -1,6 +1,6 @@
 vim.cmd([[
   augroup CocAutoStart
-    autocmd!
+    " autocmd!
     " autocmd FileType javascript,typescript,javascriptreact,typescriptreact,svelte CocStart
     autocmd FileType sql,mysql,plsql CocStop
     " autocmd BufEnter * if !index(['javascript', 'typescript', 'javascriptreact', 'typescriptreact', 'svelte'], &filetype) | silent! CocStop | endif
@@ -35,7 +35,7 @@ cmp.setup({
 })
 
 -- Filetype-specific setup for SQL
-cmp.setup.filetype({ "sql", "mysql", "plsql", "golang", "go" }, {
+cmp.setup.filetype({ "sql", "mysql", "plsql" }, {
     sources = cmp.config.sources({
         { name = "vim-dadbod-completion" },
     }, {
@@ -118,6 +118,14 @@ vim.keymap.set("n", "<M-s><M-r>", function()
     --end
 end, { desc = "Go to references" })
 
+vim.keymap.set("n", "<M-s><M-d>", function()
+    -- if use_coc() then
+    --     vim.cmd("Telescope coc definitions")
+    -- else
+    builtin.lsp_definitions()
+    -- end
+end, { desc = "Go to definition" })
+
 
 
 -- Show info or error (Alt-a Alt-a)
@@ -131,7 +139,7 @@ end, { desc = "Go to references" })
 
 -- Go to next error (Alt-a Alt-e)
 vim.keymap.set("n", "<M-a><M-e>", function()
-    if vim.fn.exists(":CocCommand") == 2 then
+    if use_coc() then
         vim.cmd("CocCommand diagnostic.next")
     else
         vim.diagnostic.goto_next()
@@ -145,7 +153,7 @@ end, { desc = "Show project diagnostics" })
 
 -- Rename (Alt-a Alt-r)
 vim.keymap.set("n", "<M-a><M-r>", function()
-    if vim.fn.exists(":CocCommand") == 2 then
+    if use_coc() then
         vim.cmd("CocCommand workspace.rename")
     else
         vim.lsp.buf.rename()
@@ -171,6 +179,8 @@ vim.keymap.set("n", "<M-A><M-A>", function()
     print("Inline errors " .. (not virtual_text_enabled and "enabled" or "disabled"))
 end, { desc = "Toggle inline errors" })
 
+vim.keymap.set("n", "<M-s><M-g>", "Telescope live_grep", {})
+
 
 require("Comment").setup()
 vim.keymap.set(
@@ -185,3 +195,36 @@ vim.keymap.set(
     "<esc><cmd>lua require('Comment.api').toggle.linewise(vim.fn.visualmode())<CR>",
     { noremap = true, silent = true }
 )
+vim.keymap.set(
+    "i",
+    "<C-_>",
+    "<esc><cmd>lua require('Comment.api').toggle.linewise()<CR>",
+    { noremap = true, silent = true }
+)
+
+require('nvim-ts-autotag').setup({
+    opts = {
+        enable_close = true,          -- Auto close tags
+        enable_rename = true,         -- Auto rename pairs of tags
+        enable_close_on_slash = false -- Auto close on trailing </
+    },
+    per_filetype = {
+        ["svelte"] = {
+            enable_close = false,
+            enable_rename = false,
+        }
+    }
+})
+
+
+SetKeyMapFunc("<A-a><A-a>", function()
+    vim.lsp.buf.signature_help()
+end, { desc = "Show function signature (LSP)" })
+
+SetKeyMapFunc("<A-a><A-s>", function()
+    -- vim.lsp.buf.hover()
+    vim.lsp.buf.signature_help()
+end, { desc = "Show function signature (LSP)" })
+
+
+require('nvim-ts-autotag').setup()
