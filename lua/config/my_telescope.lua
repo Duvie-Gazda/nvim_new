@@ -13,8 +13,10 @@ require("telescope").setup({
             "node_modules/.*",
             "svelte-kit/.*",
             "build/*",
-            -- "target/*",
-            -- "mod/*",
+            "target/*",
+            "mod/*",
+            "pkg/*",
+            "pb_data/storage/*"
         },
         mappings = {
             i = {
@@ -60,7 +62,7 @@ vim.keymap.set("n", "<leader>/", function()
     }))
 end, { desc = "[/] fuzzily search in current buffer" })
 
-vim.keymap.set("n", "<leader>s/", function()
+vim.keymap.set("n", "<A-s><A-g>", function()
     builtin.live_grep({
         grep_open_files = true,
         prompt_title = "live grep in open files",

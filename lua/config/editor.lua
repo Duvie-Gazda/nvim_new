@@ -113,3 +113,28 @@ require('gitblame').setup {
     date_format = "%r",                               -- template for the date, check Date format section for more options
     virtual_text_column = 1,                          -- virtual text start column, check Start virtual text at column section for more options
 }
+
+-- vim.keymap.set({ 'n', 'i', 'v' }, '<C-S-[>', "<Esc>:execute 'normal! <<'<CR>i", { noremap = true, silent = true })
+
+-- Add tab mapping (Alt-Shift
+-- vim.keymap.set({ 'n', 'i', 'v' }, '<C-S-]>', "<Esc>:execute 'normal! >><'<CR>i", { noremap = true, silent = true })
+-- SetKeyMap("<M-{>", ":execute 'normal! <<'", {})
+-- SetKeyMap("<M-}>", ":execute 'normal! >>'", {})
+--
+-- -- Remove tab mapping (Alt-Shift-[)
+vim.keymap.set({ 'n', 'i', 'v' }, '<M-{>', function()
+    if vim.fn.mode() == 'v' then
+        vim.cmd('normal! <gv')
+    else
+        vim.cmd('normal! <<')
+    end
+end, { noremap = true, silent = true })
+
+-- Add tab mapping (Alt-Shift-])
+vim.keymap.set({ 'n', 'i', 'v' }, '<M-}>', function()
+    if vim.fn.mode() == 'v' then
+        vim.cmd('normal! >gv')
+    else
+        vim.cmd('normal! >>')
+    end
+end, { noremap = true, silent = true })

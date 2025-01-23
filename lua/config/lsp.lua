@@ -1,11 +1,11 @@
-vim.cmd([[
-  augroup CocAutoStart
-    " autocmd!
-    " autocmd FileType javascript,typescript,javascriptreact,typescriptreact,svelte CocStart
-    autocmd FileType sql,mysql,plsql CocStop
-    " autocmd BufEnter * if !index(['javascript', 'typescript', 'javascriptreact', 'typescriptreact', 'svelte'], &filetype) | silent! CocStop | endif
-  augroup END
-]])
+-- vim.cmd([[
+--   augroup CocAutoStart
+--     " autocmd!
+--     " autocmd FileType javascript,typescript,javascriptreact,typescriptreact,svelte CocStart
+--     autocmd FileType sql,mysql,plsql CocStop
+--     " autocmd BufEnter * if !index(['javascript', 'typescript', 'javascriptreact', 'typescriptreact', 'svelte'], &filetype) | silent! CocStop | endif
+--   augroup END
+-- ]])
 --
 -- vim.cmd([[
 --   let g:coc_preferences_formatOnSaveFiletypes = ['javascript', 'typescript', 'javascriptreact', 'typescriptreact', 'svelte']
@@ -37,7 +37,10 @@ cmp.setup({
 -- Filetype-specific setup for SQL
 cmp.setup.filetype({ "sql", "mysql", "plsql" }, {
     sources = cmp.config.sources({
-        { name = "vim-dadbod-completion" },
+        -- { name = "vim-dadbod-completion" },
+        { name = "cmp-dbee" },
+        { name = "nvim_lsp" },
+        { name = "buffer" },
     }, {
         { name = "buffer" },
     }),
@@ -228,3 +231,8 @@ end, { desc = "Show function signature (LSP)" })
 
 
 require('nvim-ts-autotag').setup()
+
+-- Copilot keymap configuration
+vim.keymap.set('i', '<A-Right>', function()
+    return vim.fn['copilot#Accept']()
+end, { noremap = true, expr = true, silent = true, desc = "Trigger Copilot completion" })
