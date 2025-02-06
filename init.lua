@@ -44,18 +44,9 @@ require("lazy").setup({
                 "hrsh7th/cmp-path",
                 "hrsh7th/cmp-cmdline",
                 "L3MON4D3/LuaSnip",
-                {
-                    "MattiasMTS/cmp-dbee",
-                    dependencies = {
-                        { "kndndrj/nvim-dbee" }
-                    },
-                    ft = "sql", -- optional but good to have
-                    opts = {},  -- needed
-                },
             },
             opts = {
                 sources = {
-                    { "cmp-dbee" },
                 },
             },
         },
@@ -86,24 +77,12 @@ require("lazy").setup({
                 { "fannheyward/telescope-coc.nvim" },                           -- Telescope Coc integration
             },
         },
-        -- {
-        --     "tpope/vim-dadbod",
-        --     dependencies = {
-        --         "kristijanhusak/vim-dadbod-ui",
-        --         "kristijanhusak/vim-dadbod-completion",
-        --     },
-        -- },
         {
-            "kndndrj/nvim-dbee",
+            "tpope/vim-dadbod",
             dependencies = {
-                "MunifTanjim/nui.nvim",
+                "kristijanhusak/vim-dadbod-ui",
+                "kristijanhusak/vim-dadbod-completion",
             },
-            build = function()
-                -- Install tries to automatically detect the install method.
-                -- if it fails, try calling it with one of these parameters:
-                --    "curl", "wget", "bitsadmin", "go"
-                require("dbee").install()
-            end,
         },
         {
             "olimorris/onedarkpro.nvim",

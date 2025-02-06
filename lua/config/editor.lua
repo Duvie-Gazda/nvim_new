@@ -21,7 +21,7 @@ vim.opt.timeoutlen = 300
 vim.opt.splitright = true
 vim.opt.splitbelow = true
 vim.opt.list = true
-vim.opt.listchars = { tab = "» ", trail = "·", nbsp = "␣" }
+vim.opt.listchars = { tab = ". ", trail = "·", nbsp = "␣" }
 vim.opt.inccommand = "split"
 vim.opt.cursorline = true
 vim.opt.scrolloff = 10
@@ -32,7 +32,27 @@ vim.opt.expandtab = true
 
 
 require("autoclose").setup()
-require("bufferline").setup({})
+require("bufferline").setup({
+    options = {
+        diagnostics = "nvim_lsp",
+        diagnostics_indicator = function(count, level, diagnostics_dict, context)
+            local icon = level:match("error") and " " or " "
+            return " " .. icon .. count
+        end,
+        custom_highlights = {
+            buffer_selected = {
+                guifg = "#FFFFFF", -- White text for selected buffer
+                guibg = "#303030", -- Dark background for selected buffer
+            },
+            error = {
+                guifg = "#FF0000", -- Red color for errors
+            },
+            error_diagnostic = {
+                guifg = "#FF0000", -- Red color for diagnostic errors
+            },
+        },
+    }
+})
 require("helpers.keymaps")
 for i = 1, 9 do
     vim.api.nvim_set_keymap(
@@ -43,9 +63,9 @@ for i = 1, 9 do
     )
 end
 
+vim.keymap.set("n", "<A-k>", ":m .-2<CR>==", { noremap = true, silent = true })
 vim.keymap.set("n", "<A-j>", ":m .+1<CR>==", { noremap = true, silent = true })
 vim.keymap.set("v", "<A-j>", ":m '>+1<CR>gv=gv", { noremap = true, silent = true })
-vim.keymap.set("n", "<A-k>", ":m .-2<CR>==", { noremap = true, silent = true })
 vim.keymap.set("v", "<A-k>", ":m '<-2<CR>gv=gv", { noremap = true, silent = true })
 SetKeyMap("<A-f>", ":let @+ = expand('%:p')", {})
 SetKeyMap("<C-z>", ":u", {})
@@ -138,3 +158,20 @@ vim.keymap.set({ 'n', 'i', 'v' }, '<M-}>', function()
         vim.cmd('normal! >>')
     end
 end, { noremap = true, silent = true })
+
+SetKeyMap("<A-e><A-s>", ":nohl")
+
+
+
+
+-- -- Disable underlining and color changes for LSP diagnostics
+-- vim.api.nvim_set_hl(0, "DiagnosticUnderlineError", { underline = false })
+-- vim.api.nvim_set_hl(0, "DiagnosticUnderlineWarn", { underline = false })
+-- vim.api.nvim_set_hl(0, "DiagnosticUnderlineInfo", { underline = false })
+-- vim.api.nvim_set_hl(0, "DiagnosticUnderlineHint", { underline = false })
+
+-- -- Optionally, you can also clear the foreground and background colors
+-- vim.api.nvim_set_hl(0, "DiagnosticError", { fg = "NONE", bg = "NONE" })
+-- vim.api.nvim_set_hl(0, "DiagnosticWarn", { fg = "NONE", bg = "NONE" })
+-- vim.api.nvim_set_hl(0, "DiagnosticInfo", { fg = "NONE", bg = "NONE" })
+-- vim.api.nvim_set_hl(0, "DiagnosticHint", { fg = "NONE", bg = "NONE" })

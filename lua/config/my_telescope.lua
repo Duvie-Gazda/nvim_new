@@ -14,8 +14,8 @@ require("telescope").setup({
             "svelte-kit/.*",
             "build/*",
             "target/*",
-            "mod/*",
             "pkg/*",
+            -- "mod/*",
             "pb_data/storage/*"
         },
         mappings = {
@@ -64,8 +64,8 @@ end, { desc = "[/] fuzzily search in current buffer" })
 
 vim.keymap.set("n", "<A-s><A-g>", function()
     builtin.live_grep({
-        grep_open_files = true,
-        prompt_title = "live grep in open files",
+        -- grep_open_files = true,
+        -- prompt_title = "live grep in open files",
     })
 end, { desc = "[s]earch [/] in open files" })
 

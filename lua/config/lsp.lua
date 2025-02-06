@@ -31,17 +31,17 @@ cmp.setup({
         { name = "nvim_lsp" },
         { name = "buffer" },
         { name = "path" },
+        { name = "cmp-dbee" }
     }),
 })
+-- require("cmp-dbee").setup({})
 
 -- Filetype-specific setup for SQL
 cmp.setup.filetype({ "sql", "mysql", "plsql" }, {
     sources = cmp.config.sources({
-        -- { name = "vim-dadbod-completion" },
-        { name = "cmp-dbee" },
-        { name = "nvim_lsp" },
-        { name = "buffer" },
-    }, {
+        { name = "vim-dadbod-completion" },
+        -- { name = "cmp-dbee" },
+        -- { name = "nvim_lsp" },
         { name = "buffer" },
     }),
 })
@@ -142,11 +142,11 @@ end, { desc = "Go to definition" })
 
 -- Go to next error (Alt-a Alt-e)
 vim.keymap.set("n", "<M-a><M-e>", function()
-    if use_coc() then
-        vim.cmd("CocCommand diagnostic.next")
-    else
-        vim.diagnostic.goto_next()
-    end
+    -- if use_coc() then
+    --     vim.cmd("CocCommand diagnostic.next")
+    -- else
+    vim.diagnostic.goto_next()
+    -- end
 end, { desc = "Go to next error" })
 
 -- Project diagnostics (Alt-Shift-e)
@@ -156,11 +156,11 @@ end, { desc = "Show project diagnostics" })
 
 -- Rename (Alt-a Alt-r)
 vim.keymap.set("n", "<M-a><M-r>", function()
-    if use_coc() then
-        vim.cmd("CocCommand workspace.rename")
-    else
-        vim.lsp.buf.rename()
-    end
+    -- if use_coc() then
+    --     vim.cmd("CocCommand workspace.rename")
+    -- else
+    vim.lsp.buf.rename()
+    -- end
 end, { desc = "Rename symbol" })
 
 -- Go to symbol in file (Alt-s Alt-s)
@@ -179,10 +179,16 @@ vim.keymap.set("n", "<M-A><M-A>", function()
     vim.diagnostic.config({
         virtual_text = not virtual_text_enabled, -- Toggle the current state
     })
+
+    vim.api.nvim_set_hl(0, "DiagnosticUnderlineError", { underline = not virtual_text_enabled })
+    vim.api.nvim_set_hl(0, "DiagnosticUnderlineWarn", { underline = not virtual_text_enabled })
+    vim.api.nvim_set_hl(0, "DiagnosticUnderlineInfo", { underline = not virtual_text_enabled })
+    vim.api.nvim_set_hl(0, "DiagnosticUnderlineHint", { underline = not virtual_text_enabled })
+
     print("Inline errors " .. (not virtual_text_enabled and "enabled" or "disabled"))
 end, { desc = "Toggle inline errors" })
 
-vim.keymap.set("n", "<M-s><M-g>", "Telescope live_grep", {})
+-- vim.keymap.set("n", "<M-s><M-g>", "Telescope live_grep", {})
 
 
 require("Comment").setup()
